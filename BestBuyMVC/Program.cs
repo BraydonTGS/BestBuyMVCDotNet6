@@ -1,10 +1,25 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using BestBuyMVC.Models;
+using MySql.Data.MySqlClient;
+using System.Configuration;
+using System.Data;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+var connection = builder.Configuration.GetConnectionString("bestbuy");
+// During the scope of my request // 
+builder.Services.AddScoped<IDbConnection>((s) =>
+{
+    IDbConnection conn = new MySqlConnection(connection);
+    // Open before you can send a request to the DB //
+    conn.Open();
+    return conn;
+});
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

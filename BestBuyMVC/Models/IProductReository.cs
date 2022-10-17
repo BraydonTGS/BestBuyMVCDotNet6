@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BestBuyMVC.Models
 {
-    public interface IProductReository
+    public interface IProductRepository
     {
         public IEnumerable<Product> GetAllProducts();
     }

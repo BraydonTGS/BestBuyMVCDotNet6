@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Data;
 using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace BestBuyMVC.Models
 {
-    public class ProductRepository : IProductReository
+    public class ProductRepository : IProductRepository
     {
         private readonly IDbConnection _connection;
 
@@ -12,7 +13,6 @@ namespace BestBuyMVC.Models
         {
             _connection = connection;
         }
-
         // Gets All Products: Using Dapper: From the BB DB, Returns a Collection of Ienumerable<Products> //
         public IEnumerable<Product> GetAllProducts()
         {
