@@ -1,4 +1,5 @@
 ﻿<!--Model Data that is Being Passed Into the View -->
+<!-- This is the Products View -->
 @model IEnumerable<Product>
 
 <h2>Products</h2>
@@ -16,7 +17,7 @@
     @foreach (var product in Model)
     {
         <tr>
-            <td>@product.ProductID</td>
+            <td><button class="btn btn-warning btn-sm">@product.ProductID</button></td>
             <td>@product.Name</td>
             <td>@product.Price</td>
             <td>@product.CategoryID</td>
