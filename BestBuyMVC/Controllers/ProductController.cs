@@ -36,13 +36,13 @@ namespace BestBuyMVC.Controllers
         // Update Product Controller //
         public IActionResult UpdateProduct(int id)
         {
-            Product prod = _repo.GetProduct(id);
+            Product product = _repo.GetProduct(id);
 
-            if (prod == null)
+            if (product == null)
             {
                 return View("ProductNotFound");
             }
-            return View(prod);
+            return View(product);
         }
 
         // This Takes a Product to be Updated, We Update it, and then we return a Redirect //
@@ -56,8 +56,8 @@ namespace BestBuyMVC.Controllers
         // Insert Product //
         public IActionResult InsertProduct()
         {
-            var prod = _repo.AssignCategory();
-            return View(prod);
+            var product = _repo.AssignCategory();
+            return View(product);
 
         }
         // Inser Product to DB //

@@ -13,6 +13,7 @@ namespace BestBuyMVC.Models
         {
             _connection = connection;
         }
+
         // Gets All Products: Using Dapper: From the BB DB, Returns a Collection of Ienumerable<Products> //
         public IEnumerable<Product> GetAllProducts()
         {
@@ -24,19 +25,27 @@ namespace BestBuyMVC.Models
         {
             return _connection.QuerySingle<Product>("SELECT * FROM Products WHERE ProductId = @id", new { id = id });
         }
-        // No Return Because We are Executing //
+
+        //// No Return Because We are Executing //
+        //public void UpdateProduct(Product product)
+        //{
+        //    _connection.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
+        //    new { name = product.Name, price = product.Price, id = product.ProductID });
+        //    // The new {} is preventing SQL injection // 
+        //}
+        // Update an Existing Product //
         public void UpdateProduct(Product product)
         {
-            _connection.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
-            new { name = product.Name, price = product.Price, id = product.ProductID });
-            // The new {} is preventing SQL injection // 
+            _connection.Execute("UPDATE Products SET Name = @name, Price = @price, CategoryID = @categoryId, OnSale = @sale, StockLevel = @stock WHERE ProductID = @prodId;", new { name = product.Name, price = product.Price, categoryId = product.CategoryID, sale = product.OnSale, stock = product.StockLevel, prodId = product.ProductID, });
         }
+
 
         // Get Category //
         public IEnumerable<Category> GetCategories()
         {
             return _connection.Query<Category>("SELECT * FROM categories;");
         }
+
         // Assign a Category //
         public Product AssignCategory()
         {
@@ -45,6 +54,7 @@ namespace BestBuyMVC.Models
             product.Categories = categoryList;
             return product;
         }
+
         // Insert A Product //
         public void InsertProduct(Product productToInsert)
         {
