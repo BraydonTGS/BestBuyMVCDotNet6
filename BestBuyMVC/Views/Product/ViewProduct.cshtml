@@ -1,45 +1,46 @@
 ﻿@model Product
 
+<div class="bg bg-primary p-3 mt-5 border border-warning rounded ">
 
+    <h3>@Model.Name Information</h3>
 
-<h3>@Model.Name Information</h3>
+    <table class="table table-primary text-center">
+        <tr>
+            <th>Product Id</th>
+            <th class="col-md-3">Name</th>
+            <th>Price</th>
+            <th>Category ID</th>
+            <th>On Sale</th>
+            <th>StockLevel</th>
+        </tr>
+        <tr>
+            <td>@Model.ProductID</td>
+            <td>@Model.Name</td>
+            <td>@Model.Price</td>
+            <td>@Model.CategoryID</td>
+            <td>@Model.OnSale</td>
+            <td>@Model.StockLevel</td>
+        </tr>
+    </table>
 
-<table class="table table-primary text-center">
-    <tr>
-        <th>Product Id</th>
-        <th class="col-md-3">Name</th>
-        <th>Price</th>
-        <th>Category ID</th>
-        <th>On Sale</th>
-        <th>StockLevel</th>
-    </tr>
-    <tr>
-        <td>@Model.ProductID</td>
-        <td>@Model.Name</td>
-        <td>@Model.Price</td>
-        <td>@Model.CategoryID</td>
-        <td>@Model.OnSale</td>
-        <td>@Model.StockLevel</td>
-    </tr>
-</table>
+    <div style="display: inline-flex">
 
-<div style="display: inline-flex">
+        <div style="display: block">
+            <a href="/Product/Index" class="btn btn-info m-1">Go Back</a>
+        </div>
 
-    <div style="display: block">
-        <a href="/Product/Index" class="btn btn-info m-1">Go Back</a>
+        <div style="display: block">
+            <a href="/Product/UpdateProduct/@Model.ProductID" class="btn btn-warning m-1">Update</a>
+        </div>
+
+        <div style="display: block">
+
+            @using (Html.BeginForm("DeleteProduct", "Product", "Post"))
+            {
+                <input type="hidden" asp-for="ProductID" value="@Model.ProductID" />
+                <input type="submit" class="btn btn-danger m-1" onclick="return confirm('Are you sure?')" value="Delete" />
+            }
+        </div>
+
     </div>
-
-    <div style="display: block">
-        <a href="/Product/UpdateProduct/@Model.ProductID" class="btn btn-warning m-1">Update</a>
-    </div>
-
-    <div style="display: block">
-
-        @using (Html.BeginForm("DeleteProduct", "Product", "Post"))
-        {
-            <input type="hidden" asp-for="ProductID" value="@Model.ProductID" />
-            <input type="submit" class="btn btn-danger m-1" onclick="return confirm('Are you sure?')" value="Delete" />
-        }
-    </div>
-
 </div>

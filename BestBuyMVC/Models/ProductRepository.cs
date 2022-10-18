@@ -33,10 +33,11 @@ namespace BestBuyMVC.Models
         //    new { name = product.Name, price = product.Price, id = product.ProductID });
         //    // The new {} is preventing SQL injection // 
         //}
+
         // Update an Existing Product //
         public void UpdateProduct(Product product)
         {
-            _connection.Execute("UPDATE Products SET Name = @name, Price = @price, CategoryID = @categoryId, OnSale = @sale, StockLevel = @stock WHERE ProductID = @prodId;", new { name = product.Name, price = product.Price, categoryId = product.CategoryID, sale = product.OnSale, stock = product.StockLevel, prodId = product.ProductID, });
+            _connection.Execute("UPDATE Products SET Name = @name, Price = @price, CategoryID = @categoryId, OnSale = @sale,  StockLevel = @stock WHERE ProductID = @prodId;", new { name = product.Name, price = product.Price, stock = product.StockLevel, categoryId = product.CategoryID, sale = product.OnSale, prodId = product.ProductID, });
         }
 
 
@@ -58,8 +59,8 @@ namespace BestBuyMVC.Models
         // Insert A Product //
         public void InsertProduct(Product productToInsert)
         {
-            _connection.Execute("INSERT INTO products (NAME, PRICE, CATEGORYID) VALUES (@name, @price, @categoryID);",
-                new { name = productToInsert.Name, price = productToInsert.Price, categoryID = productToInsert.CategoryID });
+            _connection.Execute("INSERT INTO products (NAME, PRICE, CATEGORYID, OnSale, StockLevel) VALUES (@name, @price, @categoryID, @sale, @stock);",
+                new { name = productToInsert.Name, price = productToInsert.Price, categoryID = productToInsert.CategoryID, sale = productToInsert.OnSale, stock = productToInsert.StockLevel });
         }
 
         // Delete A Product //
