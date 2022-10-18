@@ -52,6 +52,28 @@ namespace BestBuyMVC.Controllers
 
             return RedirectToAction("ViewProduct", new { id = product.ProductID });
         }
+
+        // Insert Product //
+        public IActionResult InsertProduct()
+        {
+            var prod = _repo.AssignCategory();
+            return View(prod);
+
+        }
+        // Inser Product to DB //
+        public IActionResult InsertProductToDatabase(Product productToInsert)
+        {
+            _repo.InsertProduct(productToInsert);
+            return RedirectToAction("Index");
+
+        }
+
+        // Delete a Product //
+        public IActionResult DeleteProduct(Product product)
+        {
+            _repo.DeleteProduct(product);
+            return RedirectToAction("Index");
+        }
     }
 
 }

@@ -32,5 +32,33 @@ namespace BestBuyMVC.Models
             // The new {} is preventing SQL injection // 
         }
 
+        // Get Category //
+        public IEnumerable<Category> GetCategories()
+        {
+            return _connection.Query<Category>("SELECT * FROM categories;");
+        }
+        // Assign a Category //
+        public Product AssignCategory()
+        {
+            var categoryList = GetCategories();
+            var product = new Product();
+            product.Categories = categoryList;
+            return product;
+        }
+        // Insert A Product //
+        public void InsertProduct(Product productToInsert)
+        {
+            _connection.Execute("INSERT INTO products (NAME, PRICE, CATEGORYID) VALUES (@name, @price, @categoryID);",
+                new { name = productToInsert.Name, price = productToInsert.Price, categoryID = productToInsert.CategoryID });
+        }
+
+        // Delete A Product //
+        public void DeleteProduct(Product product)
+        {
+            _connection.Execute("DELETE FROM REVIEWS WHERE ProductID = @id;", new { id = product.ProductID });
+            _connection.Execute("DELETE FROM Sales WHERE ProductID = @id;", new { id = product.ProductID });
+            _connection.Execute("DELETE FROM Products WHERE ProductID = @id;", new { id = product.ProductID });
+        }
+
     }
 }
