@@ -19,11 +19,38 @@ namespace BestBuyMVC.Controllers
         }
 
 
-        // GET: /<controller>/
+        // Get All Products Method //
         public IActionResult Index()
         {
             var products = _repo.GetAllProducts();
             return View(products);
+        }
+
+        // View Product //
+        public IActionResult ViewProduct(int id)
+        {
+            var product = _repo.GetProduct(id);
+            return View(product);
+        }
+
+        // Update Product Controller //
+        public IActionResult UpdateProduct(int id)
+        {
+            Product prod = _repo.GetProduct(id);
+
+            if (prod == null)
+            {
+                return View("ProductNotFound");
+            }
+            return View(prod);
+        }
+
+        // This Takes a Product to be Updated, We Update it, and then we return a Redirect //
+        public IActionResult UpdateProductToDatabase(Product product)
+        {
+            _repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductID });
         }
     }
 
