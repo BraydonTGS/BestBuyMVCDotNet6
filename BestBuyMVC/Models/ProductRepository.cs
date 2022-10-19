@@ -26,14 +26,6 @@ namespace BestBuyMVC.Models
             return _connection.QuerySingle<Product>("SELECT * FROM Products WHERE ProductId = @id", new { id = id });
         }
 
-        //// No Return Because We are Executing //
-        //public void UpdateProduct(Product product)
-        //{
-        //    _connection.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
-        //    new { name = product.Name, price = product.Price, id = product.ProductID });
-        //    // The new {} is preventing SQL injection // 
-        //}
-
         // Update an Existing Product //
         public void UpdateProduct(Product product)
         {
