@@ -19,6 +19,7 @@ builder.Services.AddScoped<IDbConnection>((s) =>
     conn.Open();
     return conn;
 });
+
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
